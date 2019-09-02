@@ -160,7 +160,8 @@ module.exports = (env) => {
     ],
     resolve: {
       alias: {
-        '~@': path.resolve(__dirname, 'src/'),
+        '@': path.resolve(__dirname, 'src'),
+        'APP': path.resolve(__dirname, 'src/app/'),
       },
       // 自动解析确定的扩展，即无需扩展名即可引用 例如 import abc form './component/abc';
       extensions: [ '.ts', '.tsx', '.js', '.json' ],
