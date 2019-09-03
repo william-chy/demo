@@ -1,0 +1,19 @@
+<div class="wx-center">
+  <h5>我的小程序店铺 <el-switch @change="stateChange" :value="isOpen">
+    </el-switch>
+  </h5>
+  <el-card v-if="isOpen" :body-style="{ padding: '20px' }" flex="main:center cross:center dir:top">
+    <img :src="imgUrl" class="image">
+    <div class="shopname">
+      <i class="icon-pc-list2019 icon-dianpumingcheng"></i>{{storeName}}
+      <i @click="goToConfig" class="icon icon-u-bold icon-edit"></i>
+    </div>
+    <div class="img-btn-box" flex="main:justify cross:center">
+      <router-link to="/miniDec">
+        <img class="image-btn" src="//static.12301.cc/assets/build/images/wx_config_new/icon_fixtures.png">
+      </router-link>
+      <img class="image-btn" @click="$emit('showcode')" src="//static.12301.cc/assets/build/images/wx_config_new/icon_storeclose.png">
+    </div>
+    <slot></slot>
+  </el-card>
+</div>

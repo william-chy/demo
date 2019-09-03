@@ -1,0 +1,240 @@
+<div class="wrap" v-loading="loading">
+    <p class="tip">选择相应模板进行配置：
+        <el-button style="margin:0 0 0 170px;" type="danger" size="small" @click="onSubmit" :loading="saveBtnLoading">保存</el-button>
+        <a href="https://support.qq.com/products/67181?" target="_blank" style="margin-left: 20px; ">提建议赢豪礼 ></a>
+        <a class="tutorial " @mouseover.stop="tutorialOver " @mouseout.stop="tutorialOut ">观看视频教程 >
+          </a>
+        <div class="img" v-show="isTutorialShow">
+            <img src="http://static.12301.cc/assets/build/images/tutorial.png"></img>
+            <i>手机扫码<br/>查看视频教程</i>
+        </div>
+    </p>
+    <div class="flex-ctx" flex="main:left cross:top">
+        <!-- 模板显示部分 -->
+        <div class="template" flex="dir:top">
+            <div class="setable" flex="dir:top" flex-box="0">
+                <div class="text"></div>
+                <div class="carousel" flex-box="0">
+                    <el-carousel height="140px">
+                        <el-carousel-item v-for="item in imgList" :key="item.src">
+                            <img :src="item.src" alt="">
+                            <h3>{{ item.title }}</h3>
+                        </el-carousel-item>
+                    </el-carousel>
+                </div>
+                <div flex="main:center cross:center" class="icon" flex-box="0">
+                    <div class="icon-img-box" v-for="(icon,index) in iconList" flex-box="0">
+                        <img :key="icon.src+index" :src="icon.src" alt="">
+                        <p>{{icon.name}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="announce" v-if="formAnnounce.isShow" flex="main:justify cross:center">
+                <i class="icon-annouce"></i><b>{{formAnnounce.title}}:</b><span flex-box="1">{{formAnnounce.content}}</span> <i class="icon-annouce more"></i>
+            </div>
+            <div class="ctx-img" flex-box="0">
+            </div>
+        </div>
+        <!-- nav按钮 -->
+        <div class="btn-box" flex="dir:top" @click="handleTabChange">
+            <div v-for="(str,i) in ['轮播海报','图标导航','公告']" :class="currentTab==i?'btn active':'btn'" :data-tab="i">
+                <div class="btn-text" :data-tab="i">
+                    {{str}}
+                </div>
+            </div>
+        </div>
+        <!-- 轮播海报 -->
+        <el-card class="box-card" v-show="currentTab=='0'">
+            <div slot="header" class="header">
+                <span class="title">轮播海报</span>
+            </div>
+            <div class="tip">
+                <li> 1.最多可添加10张图片（建议格式：750*420px，JPG、png图片）</li>
+                <li> 2.支持添加标题和图片链接</li>
+                <li> 3.支持拖动排列图片顺序</li>
+            </div>
+            <div class="pic-edit" flex="main:justify" v-for="(item,index) in imgList" :key="index" :draggable="draggable" @dragstart="dragStart($event, index)" @dragover="allowDrop" @drop="drop($event, index)">
+                <div class="btn">
+                    <div class="el-button icon-btn" @mousedown="draggable = true;" @mouseup="draggable = false;">
+                        <i class="el-icon-rank"></i>
+                    </div>
+                    <el-button class="icon-btn" icon="el-icon-delete" @click="onDeleteImg(index)">
+                    </el-button>
+                </div>
+                <div class="image" flex-box="0" flex="cross:center">
+                    <img :src="item.src" draggable="false" style="width: 100%" alt="">
+                </div>
+                <div class="edit" flex="dir:top" flex-box="1">
+                    <el-form size="mini" :model="item" label-width="60px">
+                        <el-form-item label="图片:" required>
+                            <el-button @click="onUploadImg(index)">选择</el-button>
+                        </el-form-item>
+                        <el-form-item label="标题:">
+                            <el-input v-model="item.title" maxlength="10" show-word-limit></el-input>
+                        </el-form-item>
+                        <el-form-item label="链接:">
+                            <div flex="main:justify cross:center">
+                                <el-button @click="onSetLink(index)">设置</el-button>
+                                <div class="link" flex-box="1" flex="main:justify cross:center" v-if="item.link.isLinkToProduct!==undefined">
+                                    <div v-if="item.link.isLinkToProduct" class="link-detail">产品详情：{{item.link.product.landName}}
+                                    </div>
+                                    <div v-else class="link-detail">自定义链接：{{item.link.linkDIY}}
+                                    </div>
+                                    <a class="delete-btn" @click="onDeleteLink(index)">+</a>
+                                </div>
+                            </div>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+            <div flex="main:center cross:center" class="add" @click="onaddImg">
+                <span>+ 添加图片</span>
+            </div>
+            <el-dialog :close-on-click-modal="false" :append-to-body="true" title="设置链接" :visible.sync="dialogLinkVisible" class="link-dialog">
+                <el-tabs v-model="activeName" class="el-tabs">
+                    <el-tab-pane label="跳转至产品详情" name="product">
+                        <p class="label">选择产品: (可选微商城在售产品)</p>
+                        <el-select class="el-option" v-model="dialogTempData.product" filterable remote reserve-keyword placeholder="请输入关键词搜索选择" :remote-method="remoteMethod" size="mini" :loading="remoteSelectloading" @focus="onRemoteSelectFocus" value-key="landId">
+                            <el-option v-for="item in productOptions" :key="item.landId" :label="item.landName" :value="item">
+                            </el-option>
+                        </el-select>
+
+                    </el-tab-pane>
+                    <el-tab-pane label="自定义链接" name="linkDIY">
+                        <p class="label">链接地址:</p>
+                        <el-input class="el-input" v-model="dialogTempData.linkDIY" placeholder="请输入内容" size="mini">
+                            <template slot="prepend">Https://</template>
+                        </el-input>
+                    </el-tab-pane>
+                </el-tabs>
+                <div slot="footer" class="dialog-footer">
+                    <el-button size="small" @click="dialogLinkVisible = false">取 消</el-button>
+                    <el-button size="small" type="primary" @click="onLinkConfirm">确 定</el-button>
+                </div>
+            </el-dialog>
+        </el-card>
+        <!-- 图标导航 -->
+        <el-card class="box-card" v-show="currentTab=='1'">
+            <div slot="header" class="header">
+                <span class="title">图标导航</span>
+            </div>
+
+            <div class="tip">
+                <li> 1.最多可添加8个图标导航</li>
+                <li> 2.支持拖动排列图标顺序</li>
+                <li> 3.选择图标库图标时，载入预置的名称和链接，允许再次编辑更改</li>
+            </div>
+            <div class="pic-edit" flex="main:justify" v-for="(item,index) in iconList" :key="index" :draggable="draggable" @dragstart="dragStart($event, index)" @dragover="allowDrop" @drop="drop($event, index)">
+                <div class="btn">
+                    <div class="el-button icon-btn" @mousedown="draggable = true;" @mouseup="draggable = false;">
+                        <i class="el-icon-rank"></i>
+                    </div>
+                    <el-button class="icon-btn" icon="el-icon-delete" @click="iconList.splice(index,1)">
+                    </el-button>
+                </div>
+                <div class="image" flex-box="0" flex="main:center cross:center">
+                    <img :src="item.src" draggable="false" :id="'img'+index" style="width: 96px;height: 96px;" alt="">
+                </div>
+                <div class="edit" flex="dir:top" flex-box="1">
+                    <el-form size="mini" :model="item" label-width="60px">
+                        <el-form-item label="图标:" required>
+                            <el-button @click="onChooseIcon(index)">选择</el-button>
+                        </el-form-item>
+                        <el-form-item label="名称:">
+                            <el-input v-model="item.name" maxlength="5" show-word-limit></el-input>
+                        </el-form-item>
+                        <el-form-item label="链接:">
+                            <div flex="main:justify cross:center">
+                                <el-button @click="onSetIconLink(index)">设置</el-button>
+                                <div class="link" flex-box="1" flex="main:justify cross:center" v-if="item.link.isLinkToProduct!==undefined">
+                                    <div v-if="item.link.isLinkToProduct" class="link-detail">产品类型：{{mapProduct(item.link.productType)}}，{{(item.link.city&&item.link.city[1])||'不限'}}
+                                    </div>
+                                    <div v-else class="link-detail">自定义链接：{{item.link.linkDIY}}
+                                    </div>
+                                    <a class="delete-btn" @click="onDeleteLink(index)">+</a>
+                                </div>
+                            </div>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+            <div flex="main:center cross:center" class="add" @click="onaddIcon">
+                <span>+ 添加图标</span>
+            </div>
+
+            <el-dialog :close-on-click-modal="false" :append-to-body="true" title="选择图标" :visible.sync="dialogIconChooseVisible" class="icon-choose-dialog">
+                <el-tabs v-model="activeName" class="el-tabs">
+                    <el-tab-pane label="图标库" name="iconLib">
+                        <div class="icon-wrap" flex="main:left">
+                            <div :class="dialogTempData.iconLibIndex==iconIndex?'icon-box active':'icon-box'" flex="dir:top main:center cross:center" flex-box="0" v-for="(icon,iconIndex) in iconLibList " :key="iconIndex+'icon'" @click="onIconLibClick(iconIndex,icon.name)">
+                                <img :src="icon.src" alt="">
+                                <span>{{icon.name}}</span>
+                            </div>
+                        </div>
+                    </el-tab-pane>
+                    <el-tab-pane label="自定义" name="iconDIY">
+                        <el-button size="mini" @click="onChooseIconUplord">选择本地图片</el-button>
+                        <span style="margin-left: 10px;">建议格式：96*96px，png，JPG图片</span>
+                        <img class="icon-img" :src="dialogTempData.iconSrc" alt="">
+                    </el-tab-pane>
+                </el-tabs>
+                <div slot="footer" class="dialog-footer">
+                    <el-button size="small" @click="dialogIconChooseVisible = false">取 消</el-button>
+                    <el-button size="small" type="primary" @click="onChooseIconConfirm">确 定</el-button>
+                </div>
+            </el-dialog>
+
+            <el-dialog :close-on-click-modal="false" :append-to-body="true" title="设置链接" :visible.sync="dialogIconLinkVisible" class="link-dialog">
+                <el-tabs v-model="activeName" class="el-tabs">
+                    <el-tab-pane label="跳转至产品列表" name="product">
+                        <p class="label">产品类型: </p>
+                        <el-select class="el-option" v-model="dialogTempData.productType" placeholder="不限" size="mini">
+                            <el-option v-for="option in productList" :key="option.value" :label="option.label" :value="option.value">
+                            </el-option>
+                        </el-select>
+                        <p class="label">城市: </p>
+
+                        <el-cascader placeholder="不限" class="el-option" :options="cityOptions" :props="{ expandTrigger: 'hover' }" :show-all-levels="false" size="mini" clearable @change="handleCityChange">
+                        </el-cascader>
+
+                        <!-- <p class="label">活动类型: </p>
+                  <el-select v-model="dialogTempData.activityTypeArr" multiple placeholder="请选择">
+                    <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                    </el-option>
+                  </el-select> -->
+
+                    </el-tab-pane>
+                    <el-tab-pane label="自定义链接" name="linkDIY">
+                        <p class="label">链接地址:</p>
+                        <el-input class="el-input" v-model="dialogTempData.linkDIY" placeholder="请输入内容" size="mini">
+                            <template slot="prepend">Https://</template>
+                        </el-input>
+                    </el-tab-pane>
+                </el-tabs>
+                <div slot="footer" class="dialog-footer">
+                    <el-button size="small" @click="dialogIconLinkVisible = false">取 消</el-button>
+                    <el-button size="small" type="primary" @click="onLinkIconConfirm">确 定</el-button>
+                </div>
+            </el-dialog>
+        </el-card>
+        <!-- 公告 -->
+        <el-card class="box-card" v-show="currentTab=='2'">
+            <div slot="header" class="header">
+                <span class="title">公告</span>
+            </div>
+
+            <el-form ref="formAnnounce" :model="formAnnounce" label-width="100px" size="mini">
+                <el-form-item label="显示公告栏">
+                    <el-switch v-model="formAnnounce.isShow"></el-switch>
+                </el-form-item>
+                <el-form-item label="公告标题:">
+                    <el-input v-model="formAnnounce.title" maxlength="30" show-word-limit></el-input>
+                </el-form-item>
+                <el-form-item label="公告正文:">
+                    <el-input type="textarea" :rows="6" v-model="formAnnounce.content" maxlength="200" show-word-limit></el-input>
+                </el-form-item>
+            </el-form>
+        </el-card>
+    </div>
+
+</div>

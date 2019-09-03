@@ -1,0 +1,24 @@
+.base-info {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  .el-form {
+    width: 500px;
+    .el-input {
+      width: 300px;
+      &.shorter {
+        width: 215px;
+      }
+    }
+    .el-card {
+      width: 150px;
+      .image {
+        width: 100%;
+        display: block;
+      }
+      .img-btn {
+        margin: 8px 14px;
+      }
+    }
+  }
+}

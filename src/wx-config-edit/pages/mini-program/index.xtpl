@@ -1,0 +1,11 @@
+<div v-loading="loading">
+  <create v-if="!alreadyCreated" @create="baseInfoShow=true;alreadyCreated=true"></create>
+  <base-info :base-data="baseData" @save="saveConfigAndClose" v-if="baseInfoShow"></base-info>
+  <config-center :base-data="baseData" @toconfig="baseInfoShow = true;" @close="changeState('0')" @open="changeState('1')" @showcode="showMiniCode" v-if="alreadyCreated&&!baseInfoShow">
+  </config-center>
+  <el-dialog title="小程序码" :visible.sync="dialogVisible" :append-to-body="true" width="450px">
+    <div class="mini-code" v-loading="!codeSrc">
+      <img :src="codeSrc">
+    </div>
+  </el-dialog>
+</div>

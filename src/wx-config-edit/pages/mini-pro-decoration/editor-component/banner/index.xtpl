@@ -1,0 +1,64 @@
+<div class="comp banner editor">
+	<Container 
+		v-if="banner && banner.length>0"
+		group-name="banner" 
+		@drop="onDrop"
+		lock-axis="y"
+		drag-class="opacity-ghost"
+		class="bannerListUl"
+		drag-handle-selector=".dragBtn"
+		:drop-placeholder="dropPlaceholderOptions">
+		<Draggable v-for="(item,index) in banner" :key="index">
+			<div class="bannerItem"  flex="cross:top box:first">
+				<div class="lt" style="margin-right:15px;">
+					<div class="previewBox" flex="cross:center main:center">
+						<img :src="item.src" @error.once="onPreviewImgError" alt="">
+					</div>
+					<div class="tip" style="color:#999;margin-top:10px;">建议图片尺寸：750*375px</div>
+				</div>
+				<div class="rt">
+					<div class="line" flex="cross:center box:first">
+						<span class="lt image">图片</span>
+						<div class="rt" flex="cross:center box:first">
+							<label class="pickImgBtn" :for="'pickImgBtn_'+index" >
+								<input @change="onImgPick($event,index)" :id="'pickImgBtn_'+index" type="file">
+								选择 
+							</label>
+							<div flex="cross:center main:right">
+								<div class="dragBtn">
+									<el-button size="small" class="dragBtn" icon="el-icon-rank"/>
+								</div>
+								<el-button @click="onDelete(index)" size="small" icon="el-icon-delete"/>
+							</div>
+						</div>
+					</div>
+					<div class="line" flex="cross:center box:first">
+						<span class="lt">标题</span>
+						<div class="rt">
+							<el-input size="small" @input="onTitleChnage($event,index)" :value="item.title" show-word-limit maxlength="10" placeholder="请输入标题"></el-input>
+						</div>
+					</div>
+					<div class="line" flex="cross:center box:first">
+						<span class="lt">链接</span>
+						<div class="rt" flex="cross:center box:first">
+							<div>
+								<el-button @click="setLink(index)" size="small">设置</el-button>
+							</div>
+							<div class="linkWrap" flex="cross:center box:last">
+								<span class="linkText">{{item.link.title | $linkText}}</span>
+								<i @click="removeLink(index)" v-if="item.link.title || item.link.id" class="el-icon-close"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</Draggable>
+	</Container>
+	<div class="addBtnBox" flex="cross:center box:last">
+		<div>
+			<el-button @click="addBanner" size="small">添加图片</el-button>
+		</div>
+		<span style="color:#999" class="t">最多上传{{bannerMaxCount}}张图片，按住十字按钮可拖动排序</span>
+	</div>
+	<set-link-pop target="mini-program" use="prodDetail" ref="setLinkPop"/>
+</div>

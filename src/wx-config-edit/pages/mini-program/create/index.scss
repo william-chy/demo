@@ -1,0 +1,26 @@
+.wx-ctx{
+  height: 249px;
+  width: 100%;
+  background-color: #fff;
+  img{
+    display: block;
+    border: 1px dotted #999;
+    width: 80px;
+    height: 80px;
+  }
+  p{
+    font-size: 14px;
+    font-family:Microsoft YaHei;
+    font-weight:400;
+    color:rgba(96,98,102,1);
+    margin: 18px 0;
+  }
+  .el-button{
+    width:100px;
+    height:40px;
+    background:rgba(236,242,251,1);
+    border:1px solid rgba(69,126,216,1);
+    color: rgb(69,126,216);
+    border-radius:4px;
+  }
+}

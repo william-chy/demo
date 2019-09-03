@@ -1,0 +1,60 @@
+<div class="page minProDecoration">
+    <div flex="cross:center box:last" style="padding:10px 15px;">
+        <span style="font-size:14px;font-weight:bold">组件库<i style="color:#999;font-size:12px;font-weight:normal">（拖拽使用）</i></span>
+        <el-button type="danger" size="small">上架</el-button>
+    </div>
+    <div class="stageContainer" flex="cross:top box:first">
+        <div class="leftCon">
+            <div style="margin-bottom:15px;">
+                <h3 class="tit">基础组件</h3>
+                <div class="listUl">
+                    <Container 
+                        behaviour="copy" 
+                        group-name="preview-component" 
+                        drag-class="opacity-ghost" 
+                        :get-child-payload="getBaseDragSourcePayload">
+                        <draggable v-for="item in baseCompIcon" :key="item.compName">
+                            <img :src="item.compIcon" draggable="false">
+                        </draggable>
+                    </Container>
+                </div>
+            </div>
+            <div>
+                <h3 class="tit">其它组件</h3>
+                <div class="listUl">
+                    <Container 
+                        behaviour="copy" 
+                        group-name="preview-component" 
+                        drag-class="opacity-ghost" 
+                        :get-child-payload="getOtherDragSourcePayload">
+                        <draggable v-for="item in otherCompIcon" :key="item.compName">
+                            <img :src="item.compIcon" draggable="false">
+                        </draggable>
+                    </Container>
+                </div>
+            </div>
+        </div>
+        <div flex="cross:top box:first">
+            <div class="outputStage">
+                <Container 
+                    group-name="preview-component" 
+                    @drop="onDrop"
+                    lock-axis="y"
+                    drag-class="opacity-ghost"
+                    class="custom-scrollbar"
+                    :drop-placeholder="dropPlaceholderOptions">
+                    <Draggable :key="item.compId" v-for="(item,index) in compData">
+                        <preview-wrapper :comp-id="item.compId" :comp-name="item.compName" :comp-name-cn="item.compNameCN" :index="index">
+                            <component :is="item.compName" v-bind="item"></component>
+                        </preview-wrapper>
+                    </Draggable>
+                </Container>
+            </div>
+            <div class="editorWrap">
+                <editor-wrapper v-if="curEditCompData">
+                    <component :is="curEditCompData.compName.replace('preview','editor')" v-bind="curEditCompData"/>
+                </editor-wrapper>
+            </div>
+        </div>
+    </div>
+</div>

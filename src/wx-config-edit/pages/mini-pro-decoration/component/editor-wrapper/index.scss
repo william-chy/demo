@@ -1,0 +1,27 @@
+.editorWrapper{
+    background: #fff;
+    margin-bottom: 30px;
+    border-radius: 5px;
+
+    & > .editorWrapper-header{
+        padding-left: 15px;
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid #e5e5e5;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    & > .editorWrapper-content{
+        padding: 20px 15px 30px 15px;
+    }
+
+    .line{
+        dt{
+            width: 80px;
+        }
+        margin-bottom: 20px;
+        margin-left: 2px;
+        &:last-child{margin-bottom: 0}
+    }
+
+}

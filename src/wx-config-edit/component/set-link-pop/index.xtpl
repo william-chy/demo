@@ -1,0 +1,74 @@
+<div>
+    <el-dialog
+        :title="title"
+        :append-to-body="true"
+        custom-class="setLinkPopWrap"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        :visible.sync="show"
+        :width="width">
+            <el-tabs v-model="linkType">
+                <el-tab-pane :label="use=='prodList' ? '跳转至产品列表' : '跳转至产品详情'" name="prod">
+                    <div v-if="use=='prodDetail'">
+                        <p class="tip">选择产品（可选小程序在售产品）</p>
+                        <el-select
+                            v-model="prodId"
+                            filterable
+                            remote
+                            size="small"
+                            placeholder="请输入关键词搜索选择"
+                            :remote-method="onSearch"
+                            style="width:300px;margin-top:20px;"
+                            :loading="loading">
+                                <el-option
+                                    v-for="item in prodList"
+                                    :key="item.id"
+                                    :label="item.title"
+                                    :value="item.id">
+                                </el-option>
+                        </el-select>
+                    </div>
+                    <div v-if="use=='prodList'">
+                        <div style="margin-bottom:10px">
+                            <p class="tip" style="margin-bottom:5px;">产品类型</p>
+                            <el-select 
+                                class="el-option" 
+                                v-model="ptype" 
+                                placeholder="不限" 
+                                size="mini">
+                                    <el-option 
+                                        v-for="option in ptypeMap" 
+                                        :key="option.value" 
+                                        :label="option.label" 
+                                        :value="option.value">
+                                    </el-option>
+                            </el-select>
+                        </div>
+                        <div>
+                            <p class="tip" style="margin-bottom:5px;">城市</p>
+                            <el-cascader 
+                                placeholder="不限" 
+                                class="el-option" 
+                                :options="cityOptions" 
+                                :props="{ expandTrigger: 'hover' }" 
+                                :show-all-levels="false" 
+                                size="mini" 
+                                clearable 
+                                @change="handleCityChange">
+                            </el-cascader>
+                        </div>
+                    </div>
+                </el-tab-pane>
+                <el-tab-pane v-if="target=='h5'" label="自定义链接" name="text">
+                    <div>链接地址</div>
+                    <div style="width:70%;margin-top:15px">
+                        <el-input size="small" v-model="customLink" placeholder="请输入自定义链接地址"></el-input>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
+            <span slot="footer" class="dialog-footer">
+                <el-button size="small" @click="onCancel">取 消</el-button>
+                <el-button size="small" type="primary" @click="onConfirm">确 定</el-button>
+            </span>
+    </el-dialog>
+</div>

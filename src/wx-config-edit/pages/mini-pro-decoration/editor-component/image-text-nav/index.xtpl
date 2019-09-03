@@ -1,0 +1,73 @@
+<div class="comp imageTextNav editor">
+	<dl class="line" flex="cross:center">
+		<dt class="lt">导航样式</dt>
+		<dd class="rt">
+			<el-radio v-model="style" :label="1">图文导航</el-radio>
+			<el-radio v-model="style" :label="2">文字导航</el-radio>
+		</dd>
+	</dl>
+	<Container 
+		group-name="navList" 
+		@drop="onDrop"
+		lock-axis="y"
+		drag-class="opacity-ghost"
+		class="navListUl"
+		drag-handle-selector=".dragBtn"
+		:drop-placeholder="dropPlaceholderOptions">
+		<Draggable v-for="(item,index) in navList" :key="index">
+			<div class="navItem"  flex="cross:center box:first">
+				<div v-show="style==1" class="lt" style="margin-right:15px;">
+					<div class="previewBox" flex="cross:center main:center">
+						<img :src="item.icon" @error.once="onPreviewImgError" alt="">
+					</div>
+				</div>
+				<div class="rt">
+					<div v-show="item.style==1" class="line" flex="cross:center box:first">
+						<span class="lt image">图标</span>
+						<div class="rt" flex="cross:center box:first">
+							<el-button @click="onImgPick(index)" size="small">选择</el-button>
+							<div flex="cross:center main:right">
+								<div class="dragBtn">
+									<el-button size="small" class="dragBtn" icon="el-icon-rank"/>
+								</div>
+								<el-button @click="onDelete(index)" size="small" icon="el-icon-delete"/>
+							</div>
+						</div>
+					</div>
+					<div class="line" flex="cross:center box:first">
+						<span class="lt">名称</span>
+						<div class="rt" :flex="item.style==1 ? '' : 'cross:center box:last'">
+							<el-input size="small" @input="onTitleChnage($event,index)" :value="item.text" show-word-limit maxlength="5" placeholder="请输入标题"></el-input>
+							<div v-if="item.style==2" style="margin-left:5px;" flex="cross:center main:right">
+								<div class="dragBtn">
+									<el-button size="small" class="dragBtn" icon="el-icon-rank"/>
+								</div>
+								<el-button @click="onDelete(index)" size="small" icon="el-icon-delete"/>
+							</div>
+						</div>
+					</div>
+					<div class="line" flex="cross:center box:first">
+						<span class="lt">链接</span>
+						<div class="rt" flex="cross:center box:first">
+							<div>
+								<el-button @click="setLink(index)" size="small">设置</el-button>
+							</div>
+							<div class="linkWrap" flex="cross:center box:last">
+								<span class="linkText">{{item | $linkText}}</span>
+								<i @click="removeLink(index)" v-if="item.ptype!='all' || item.cityName!='all'" class="el-icon-close"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</Draggable>
+	</Container>
+	<div class="addBtnBox" flex="cross:center box:last">
+		<div>
+			<el-button @click="addNav" size="small">添加导航</el-button>
+		</div>
+		<span style="color:#999" class="t">最多上传4张图片，按住十字按钮可拖动排序</span>
+	</div>
+	<pick-icon-pop ref="pickIconPop"/>
+	<set-link-pop ref="setLinkPopNavList" target="mini-program" use="prodList"/>
+</div>

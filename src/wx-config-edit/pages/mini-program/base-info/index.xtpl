@@ -1,0 +1,36 @@
+<div class="base-info" v-loading="loading">
+  <el-form ref="form" :rules="rules" :model="form" label-width="120px" size="small">
+    <el-form-item label="店铺名称：" prop="name">
+      <el-input v-model="form.name"></el-input>
+    </el-form-item>
+    <el-form-item label="地址坐标：" prop="coordinate">
+      <el-input v-model="form.coordinate" class="shorter"></el-input>
+      <el-button @click="onOpenPosition">查询坐标</el-button>
+    </el-form-item>
+    <el-form-item label="服务电话：" prop="telephone">
+      <el-input v-model="form.telephone"></el-input>
+    </el-form-item>
+    <el-form-item label="详细地址：" prop="addr">
+      <el-input v-model="form.addr"></el-input>
+    </el-form-item>
+    <el-form-item label="店铺logo：" prop="url">
+      <el-card shadow="hover" :body-style="{ padding: '0px' }">
+        <img :src="form.url" class="image">
+        <div class="img-btn" flex="main:center cross:center">
+          <el-button size="mini" @click="onUploadImg">{{
+              form.url?'更换':'添加'}}</el-button>
+          <el-button v-if="form.url" size="mini" @click="form.url=''">删除</el-button>
+        </div>
+      </el-card>
+    </el-form-item>
+
+
+    <el-form-item>
+      <el-button type="primary" @click="onSubmit" :loading="btnLoading">保存配置</el-button>
+
+    </el-form-item>
+  </el-form>
+
+
+
+</div>

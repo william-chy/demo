@@ -1,0 +1,56 @@
+<div class="form-wrap" v-loading="loading">
+    <el-form ref="form" :rules="rules" :model="form" label-width="120px" size="mini">
+        <el-form-item label="店铺名称：">
+            <el-input v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="店铺网址：">
+            <el-input :value="form.site" disabled></el-input>
+            <el-button v-clipboard:copy="form.site" v-clipboard:success="onCopy" v-clipboard:error="onError">点击复制</el-button>
+            <i class="el-icon-share icon-btn" @mouseover.stop="onmouseover" @mouseout.stop="onmouseout"></i>
+            <!-- <img class="qrcode" :src="form.qrcode_url" v-show="isCanvasShow" alt=""> -->
+            <div class="qrcode" id="qrcode" v-show="isCanvasShow">
+                <i>手机扫码<br/>体验新版微商城</i>
+            </div>
+        </el-form-item>
+        <el-form-item label="服务QQ：">
+            <el-input v-model="form.qq"></el-input>
+        </el-form-item>
+        <el-form-item label="服务电话：">
+            <el-input v-model="form.telephone"></el-input>
+        </el-form-item>
+        <el-form-item label="详细地址：">
+            <el-input type="textarea" :rows="3" v-model="form.addr"></el-input>
+        </el-form-item>
+        <el-form-item label="地址坐标：" prop="coordinate">
+            <el-input v-model="form.coordinate" class="shorter"></el-input>
+            <el-button @click="onOpenPosition">查询坐标</el-button>
+            <p class="tip">查询坐标，并将其填入（经度,维度）</p>
+        </el-form-item>
+        <el-form-item label="支付方式：">
+            <el-checkbox v-model="form.payMethod.pay_wx" label="微信"></el-checkbox>
+            <el-checkbox v-model="form.payMethod.pay_ali" label="支付宝"></el-checkbox>
+            <el-checkbox v-model="form.payMethod.pay_uni" label="银联(银行卡)"></el-checkbox>
+            <el-checkbox v-model="form.payMethod.pay_card" label="会员卡"></el-checkbox>
+            <p class="tip">请至少选择一种支付方式</p>
+        </el-form-item>
+        <el-form-item>
+            <div slot="label">
+                <p>关于我们：</p>
+                <p class="tip" style="padding-right: 15px; ">（选填）</p>
+            </div>
+            <vue-editor ref="about" style="width: 800px" :production="isProduction" :account="account" :height="300" />
+        </el-form-item>
+
+        <el-form-item>
+            <el-button type="primary" @click="onSubmit" :loading="btnLoading">保存</el-button>
+            <a href="https://support.qq.com/products/67181?" target="_blank" style="margin-left: 20px; ">提建议赢豪礼 ></a>
+        </el-form-item>
+    </el-form>
+    <a class="tutorial " @mouseover.stop="tutorialOver " @mouseout.stop="tutorialOut ">观看视频教程 >
+
+    </a>
+    <div class="img" v-show="isTutorialShow">
+        <img src="http://static.12301.cc/assets/build/images/tutorial_01.png"></img>
+        <i>手机扫码<br/>查看视频教程</i>
+    </div>
+</div>

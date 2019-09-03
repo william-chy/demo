@@ -1,0 +1,12 @@
+<div class="crop-choose">
+    <span class="crop-choose__btn">
+        <i class="icon-pc-list icon-haibaotuiguang"></i>
+        <span class="text">选择图片</span>
+    </span>
+    <input type="file" accept="image/jpeg,image/jpg,image/png,image/bmp" class="crop-choose__fileInp">
+
+</div>
+
+<div class="crop__btnline">
+    <span class="crop__cancelBtn crop__btn">取消</span>
+</div>

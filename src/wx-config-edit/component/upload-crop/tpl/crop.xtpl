@@ -1,0 +1,11 @@
+<div class="crop">
+    <div class="crop__imgbox">
+        <img class="crop__img" src=""/>
+    </div>
+    <div class="crop__btnline">
+
+        <span class="crop__cancelBtn crop__btn">取消</span>
+        <span class="crop__savebtn crop__btn">裁剪并上传</span>
+
+    </div>
+</div>

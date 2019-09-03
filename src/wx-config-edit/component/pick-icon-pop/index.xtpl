@@ -1,0 +1,39 @@
+<div>
+    <el-dialog
+        :title="title"
+        :append-to-body="true"
+        custom-class="pickIconPopWrap"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+        :visible.sync="show"
+        :width="width">
+            <el-tabs v-model="type">
+                <el-tab-pane label="图标库" name="1">
+                    <ul>
+                        <li @click="onSelectIcon(item)" :class="{selected:selectedSrc==item.src}" class="iconItem" v-for="item in IconMap" :key="item.src">
+                            <div class="imgBox" flex="cross:center main:center">
+                                <img :src="item.src"/>
+                            </div>
+                            <div class="text">{{item.text}}</div>
+                        </li>
+                    </ul>
+                </el-tab-pane>
+                <el-tab-pane  label="自定义" name="2">
+                    <div flex="cross:center">
+                        <label class="pickImgBtn" for="pick_icon_pop_pickImgBtn" >
+                            <input @change="onImgPick" id="pick_icon_pop_pickImgBtn" type="file">
+                            选择本地图片
+                        </label>
+                        <span style="color:#999;margin-left:10px">建议格式：96*96px，png，JPG图片</span>
+                    </div>
+                    <div class="iconImgPreviewBox" flex="cross:center main:center">
+                        <img :src="customSrc"/>
+                    </div>
+                </el-tab-pane>
+            </el-tabs>
+            <span slot="footer" class="dialog-footer">
+                <el-button size="small" @click="onCancel">取 消</el-button>
+                <el-button size="small" type="primary" @click="onConfirm">确 定</el-button>
+            </span>
+    </el-dialog>
+</div>

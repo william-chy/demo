@@ -1,0 +1,9 @@
+<div class="wx-ctx" flex="main:center cross:center dir:top">
+  <img src="//static.12301.cc/assets/build/images/wx_config_new/image_store_default.png" alt="">
+  <p>
+    你还没有小程序店铺哦
+  </p>
+  <el-button type="primary" @click="$emit('create')">立即创建</el-button>
+</div>
+
+ 

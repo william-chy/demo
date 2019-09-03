@@ -1,0 +1,6 @@
+<div class="comp search preview">
+    <div class="searchBox" :class="[align]" :flex="flex">
+		<i class="el-icon-search"></i>
+		<span class="t">{{placeholder}}</span>
+	</div>
+</div>

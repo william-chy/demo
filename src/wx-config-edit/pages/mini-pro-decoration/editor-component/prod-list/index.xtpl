@@ -1,0 +1,24 @@
+<div class="comp prodList editor">
+    <div class="line" flex="cross:center box:first">
+        <dt class="lt">展示样式</dt>
+        <dd style="position: relative;top:2px">
+            <el-radio-group v-model="_layout">
+                <el-radio :label="1">大图模式</el-radio>
+                <el-radio :label="2">一行两个</el-radio>
+                <el-radio :label="3">详细列表</el-radio>
+            </el-radio-group>
+        </dd>
+    </div>
+    <div class="line" flex="cross:top box:first">
+        <dt class="lt" style="position: relative;top:3px;">显示信息</dt>
+        <dd>
+            <el-checkbox :indeterminate="isIndeterminate" v-model="isCheckAll">全选</el-checkbox>
+            <el-checkbox-group v-model="_detail" @change="onCheck">
+                <el-checkbox label="lprice">零售价</el-checkbox>
+                <el-checkbox label="mprice">门市价</el-checkbox>
+                <el-checkbox label="ptype">产品类型</el-checkbox>
+                <el-checkbox label="tnum">票种数量</el-checkbox>
+            </el-checkbox-group>
+        </dd>
+    </div>
+</div>

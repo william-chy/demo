@@ -1,0 +1,35 @@
+.unlockip-wrap {
+    background-color: #fff;
+    .title-box {
+        height: 36px;
+        line-height: 36px;
+        font-size: 14px;
+        font-weight: 400;
+        background: #fff;
+        border-bottom: 1px solid #457ed8;
+        a.title-text {
+            // display: inline-block;
+            height: 35px;
+            padding: 0 20px;
+            font-weight: 700;
+            margin: 0;
+            background: #fff;
+            color: #262d37;
+            &.router-link-active {
+                background-color: #457ed8;
+                color: #fff;
+            }
+        }
+        .on {
+            width: 15px;
+            height: 15px;
+            border: 1px solid #457ed8;
+            display: inline-block;
+            text-align: center;
+            line-height: initial;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+    }
+}

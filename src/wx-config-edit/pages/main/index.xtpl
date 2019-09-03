@@ -1,0 +1,23 @@
+<div class="unlockip-wrap">
+    <div class="title-box" flex="cross:center box:last">
+        <div flex="cross:center">
+            <router-link class="title-text" to="/mini">
+                微信小程序
+            </router-link>
+            <router-link class="title-text" to="/miniDec">
+                微信小程序装修
+            </router-link>
+            <router-link class="title-text" to="/storeInfo">
+                店铺信息
+            </router-link>
+            <router-link class="title-text" to="/homeDecoration">
+                主页装修
+            </router-link>
+        </div>
+        <a class="title-text" href="/module/wechat/index.html" target="_blank">
+            微信公众号配置
+        </a>
+        <a href="/new/helpcenter_article.html#/list?directoryId=47&page=1&pageSize=8" target="_blank" style="float: right;margin-right: 20px;"><i class="on">?</i>常见问题</a>
+    </div>
+    <router-view></router-view>
+</div>

@@ -1,0 +1,32 @@
+<div class="comp imageTextNav preview">
+    <ul class="navUl">
+		<li 
+			class="navItem" 
+			:class="['navItem_style_'+item.style]" 
+			:style="{width:boxWidth+'px'}"
+			v-for="(item,index) in navList.slice(0,4)"
+			:key="index">
+			<div v-if="item.style==1" class="imgBox" flex="cross:center main:center">
+				<div class="innerBox">
+					<img :src="item.icon" @error="onImgError">
+				</div>
+			</div>
+			<div class="text" v-text="item.text"></div>
+		</li>
+	</ul>
+	<ul v-if="navList.length>4" class="navUl">
+		<li 
+			class="navItem" 
+			:class="['navItem_style_'+item.style]" 
+			:style="{width:boxWidth+'px'}"
+			v-for="(item,index) in navList.slice(4,8)"
+			:key="index">
+			<div v-if="item.style==1" class="imgBox" flex="cross:center main:center">
+				<div class="innerBox">
+					<img :src="item.icon" @error="onImgError">
+				</div>
+			</div>
+			<div class="text" v-text="item.text"></div>
+		</li>
+	</ul>
+</div>

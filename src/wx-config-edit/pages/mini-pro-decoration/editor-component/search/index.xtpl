@@ -1,0 +1,13 @@
+<div class="comp search editor">
+	<dl class="line" flex="cross:center box:first">
+		<dt class="lt">建议搜索词</dt>
+		<el-input size="small" @input="onPlaceholderChange" :value="placeholder" show-word-limit maxlength="10" placeholder="请输入建议搜索词"></el-input>
+	</dl>
+	<dl class="line" flex="cross:center box:first">
+		<dt class="lt">文字显示</dt>
+		<dd class="rt">
+			<el-radio v-model="_align" label="center">居中</el-radio>
+			<el-radio v-model="_align" label="left">居左</el-radio>
+		</dd>
+	</dl>
+</div>

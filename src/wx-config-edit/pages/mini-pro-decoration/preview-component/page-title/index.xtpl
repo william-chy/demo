@@ -1,0 +1,13 @@
+<div class="comp pageTitle preview" :style="{backgroundImage:'url('+bg+')'}">
+    <div :class="['align-'+shopNameAlign]" class="con" v-if="shopNameShow || searchBarShow">
+        <div class="shopNameBox box" v-if="shopNameShow">
+            <i class="lt icon icon-u-bold icon-dizhi"></i>
+            <span class="mid">{{shopName}}</span>
+            <i style="position:relative;top:2px;" class="rt icon icon-u-bold icon-arrowdown"></span>
+        </div>
+        <div class="searchBox box" flex="cross:center" v-if="searchBarShow">
+            <i class="lt icon icon-u-bold icon-search"></i>
+            <span class="t">搜索</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="comp textWord editor">
+    <dl class="line" flex="cross:center box:first">
+        <dt class="lt">标题</dt>
+        <dd style="margin-right:20%">
+            <el-input 
+                size="small" 
+                v-model="_title" 
+                show-word-limit 
+                maxlength="30" 
+                placeholder="在页面中显示">
+            </el-input>
+        </dd>
+    </dl>
+    <dl class="line" flex="cross:top box:first">
+        <dt style="margin-top:10px;" class="lt">内容</dt>
+        <dd style="margin-right:20%">
+            <el-input 
+                type="textarea"
+                size="small" 
+                v-model="_content" 
+                show-word-limit 
+                maxlength="200" 
+                placeholder="在弹窗中显示">
+            </el-input>
+        </dd>
+    </dl>
+    <dl class="line" flex="cross:center box:first">
+        <dt class="lt">显示方式</dt>
+        <dd>
+            <el-radio-group v-model="_display">
+                <el-radio :label="1">滚动</el-radio>
+                <el-radio :label="2">禁用滚动</el-radio>
+                <el-radio :label="3">多行显示</el-radio>
+            </el-radio-group>
+        </dd>
+    </dl>
+    <dl class="line" flex="cross:center box:first">
+        <dt class="lt">有无图标</dt>
+        <dd>
+            <el-radio-group v-model="_icon">
+                <el-radio :label="1">有</el-radio>
+                <el-radio :label="0">无</el-radio>
+            </el-radio-group>
+        </dd>
+    </dl>
+</div>

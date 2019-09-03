@@ -1,0 +1,48 @@
+.comp.pageTitle.preview{
+    position: relative;
+    height: 175px;
+    background-Color: #fff;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    .con{
+        position: absolute;
+        top: 28px;
+        left: 15px;
+        right: 95px;
+        height: 26px;
+        font-size: 14px;  
+        color: #fff;
+        overflow: hidden;
+        .box{
+            height: 100%;
+            &.shopNameBox{
+                line-height: 26px;
+                overflow: hidden;
+                font-size: 0;
+                .mid{font-size: 14px;}
+            }
+            &.searchBox{
+                width: 60px;
+                height: 100%;
+                background: #ffe6b3;
+                border-radius: 20px;
+                padding: 0 10px;
+                color: #999;
+                .icon{
+                    margin: 2px 3px 0 0;
+                }
+            }
+        } 
+        &.align-left{
+            .shopNameBox{float: left;}
+            .searchBox{float: right;}
+        }
+        &.align-center{
+            .shopNameBox{float: right;}
+            .searchBox{float: left;}
+        }
+    }
+
+}

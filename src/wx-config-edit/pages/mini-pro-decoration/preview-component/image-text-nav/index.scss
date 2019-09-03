@@ -1,0 +1,41 @@
+.comp.imageTextNav.preview{
+    background: #fff;
+    .navUl{
+        font-size: 0;
+        overflow: hidden;
+        text-align: center;
+        padding-left: 5px;
+    }
+    .navItem{
+        display: inline-block;
+        padding: 10px 0 15px;
+        text-align: center;
+        font-size: 12px;
+        &.navItem_style_2{
+            padding: 13px 0
+        }
+        .imgBox{
+            font-size: 0;
+            margin-bottom: 5px;
+            overflow: hidden;
+            .innerBox{
+                width: 60%;
+                overflow: hidden;
+                font-size: 0;
+                border-radius: 50%;
+            }
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center center;
+                overflow: hidden;
+            }
+        }
+        .text{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}

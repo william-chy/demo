@@ -1,0 +1,92 @@
+.comp.banner.editor{
+    margin-bottom: 10px;
+    background: #fff;
+
+    .addBtnBox{
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #e5e5e5
+    }
+    .bannerItem{
+        padding: 15px;
+        border-radius: 5px;
+        border: 1px solid #e5e5e5;
+        margin-bottom: 15px;
+        .previewBox{
+            width: 144px;
+            height: 80px;
+            font-size: 0;
+            background: #F0F3F5;
+            overflow: hidden;
+            img{
+                width: 100%;
+            }
+        }
+        .line{
+            margin-bottom: 10px;
+            &:last-child{margin-bottom: 0}
+            .lt{
+                width: 40px;
+
+                &.image{
+                    position: relative;
+                    &:before{
+                        content : "*";
+                        position: absolute;
+                        top: 1px;
+                        left: -9px;
+                        color: red;
+                        font-size: 16px;
+                    }
+                }
+            }
+            .pickImgBtn{
+                position: relative;
+                width: 55px;
+                height: 30px;
+                line-height: 30px;
+                border: 1px solid #C9CCD1;
+                border-radius: 5px;
+                color: #666;
+                font-size: 12px;
+                text-align: center;
+                overflow: hidden;
+                cursor: pointer;
+                input[type=file]{
+                    width: 0.1px;
+                    height: 0.1px;
+                    opacity: 0;
+                    overflow: hidden;
+                    position: absolute;
+                    z-index: -1;
+                    cursor: pointer;
+                }
+                &:hover{
+                    border-color: #c7d8f3;
+                    background-color: #ecf2fb;
+                    color: #457ED8
+                }
+            }
+            .dragBtn{
+                cursor: move;
+                margin-right: 3px;
+            }
+            .linkWrap{
+                height:32px;
+                margin-left:5px;
+                background:#F0F3F5;
+                .linkText{
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    padding-left: 3px;
+                }
+                .el-icon-close{
+                    margin-right: 3px;
+                    font-size: 16px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

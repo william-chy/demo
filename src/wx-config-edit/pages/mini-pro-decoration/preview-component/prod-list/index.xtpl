@@ -1,0 +1,62 @@
+<div class="comp prodList preview">
+    <ul v-if="layout==1" class="listUl layout_1">
+        <li v-for="item in prodCount" :key="item" class="item">
+            <div flex="cross:center main:center" class="photoBox">
+                <img :src="emptyIcon" alt="">
+            </div>
+            <div class="pname ellipsis-2">{{pname}}</div>
+            <div style="margin-top: 8px;" v-if="show_ptype || show_tnum">
+                <span class="ptype" v-if="show_ptype">景区</span>
+                <span class="tnum" v-if="show_tnum">6种票类</span>
+            </div>
+            <div style="margin-top: 8px;" v-if="show_lprice || show_mprice">
+                <span class="lprice moneyBox briny" v-if="show_lprice">56</span>
+                <span class="mprice" v-if="show_mprice">
+                    门市价 <i class="moneyBox">32</i>
+                </span>
+            </div>
+        </li>
+    </ul>
+    <ul v-if="layout==2" flex class="listUl layout_2">
+        <li v-comput-imgbox-height v-for="item in prodCount" :key="item" class="item">
+            <div flex="cross:center main:center" class="photoBox">
+                <img :src="emptyIcon" alt="">
+            </div>
+            <div class="pname ellipsis">{{pname}}</div>
+            <div style="margin-top: 8px;" v-if="show_ptype">
+                <span class="ptype">景区</span>
+            </div>
+            <div style="margin-top: 8px;" v-if="show_tnum">
+                <span class="tnum">6种票类</span>
+            </div>
+            <div style="margin-top: 8px;" v-if="show_lprice || show_mprice">
+                <span class="lprice moneyBox briny" v-if="show_lprice">56</span>
+                <span class="mprice" v-if="show_mprice">
+                    门市价 <i class="moneyBox">32</i>
+                </span>
+            </div>
+        </li>
+    </ul>
+    <ul v-if="layout==3" class="listUl layout_3">
+        <li v-for="item in prodCount" :key="item" class="item" flex="cross:stretch box:first">
+            <div flex="cross:center main:center" class="photoBox">
+                <img :src="emptyIcon" alt="">
+            </div>
+            <div flex="dir:top box:last">
+                <div>
+                    <div class="pname ellipsis-2">{{pname}}</div>
+                    <div style="margin-top: 8px;" v-if="show_ptype || show_tnum">
+                        <span class="ptype" v-if="show_ptype">景区</span>
+                        <span class="tnum" v-if="show_tnum">6种票类</span>
+                    </div>
+                </div>
+                <div style="margin-top: 8px;" v-if="show_lprice || show_mprice">
+                    <span class="lprice moneyBox briny" v-if="show_lprice">56</span>
+                    <span class="mprice" v-if="show_mprice">
+                        门市价 <i class="moneyBox">32</i>
+                    </span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

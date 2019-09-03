@@ -1,0 +1,17 @@
+<div class="comp banner preview">
+	<div v-if="!banner || banner.length<=0" class="emptyWrap" flex="main:center cross:center">
+		<img :src="emptyIcon"/>
+	</div>
+	<a flex="cross:center main:center" class="con single bannerItem" v-if="banner && banner.length==1">
+		<img :src="banner[0].src" @error="onImgError" alt="">
+	</a>
+	<div v-if="banner && banner.length>1" class="con">
+		<el-carousel height="170px" arrow="never">
+			<el-carousel-item v-for="(item,index) in banner" :key="index">
+				<a flex="cross:center main:center" class="bannerItem">
+					<img :src="item.src" @error="onImgError" alt="">
+				</a>
+			</el-carousel-item>
+		</el-carousel>
+	</div>
+</div>

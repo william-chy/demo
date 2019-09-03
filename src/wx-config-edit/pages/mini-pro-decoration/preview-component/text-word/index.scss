@@ -1,0 +1,50 @@
+.comp.textWord.preview{
+    padding: 0 10px 0 15px;
+    color: #ed6a0c;
+    background: #fffbe8;
+    .leftIcon{
+        position: relative;
+        top: 1px;
+        margin-right: 6px;
+    }
+    .title{
+        position: relative;
+        height: 40px;
+        line-height: 40px;
+        &.scroll{
+            overflow: hidden;
+            text-overflow: none;
+            white-space: normal;
+            .t{
+                position: absolute;
+                white-space: nowrap;
+                animation: scroll 10s linear infinite both;
+            }
+        }
+        &.noScroll{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        &.multLine{
+            padding: 11px 0;
+            height: auto;
+            line-height: 1.5;
+            overflow: none;
+            text-overflow: none;
+            white-space: normal;
+        }
+        
+    }
+    .icon-arrowright{
+        position: relative;
+        top: 2px;
+    }
+
+}
+
+@keyframes scroll{
+    to{
+        transform: translate3d(-100%,0,0)
+    }
+}

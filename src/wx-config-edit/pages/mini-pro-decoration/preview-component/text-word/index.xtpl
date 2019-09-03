@@ -1,0 +1,9 @@
+<div class="comp textWord preview">
+	<div class="noticeBar" :class="{hasIcon:!!icon}" :flex="flex">
+		<img v-if="icon==1" class="leftIcon" :src="leftIcon" alt="">
+		<div ref="wrap" :class="{multLine:display==3,scroll:display==1,noScroll:display==2}" class="title">
+			<div ref="content" :style="{paddingLeft:paddingLeft+'px'}" class="t" v-text="title"></div>
+		</div>
+		<i class="icon icon-u-bold icon-arrowright"></i>
+	</div>
+</div>

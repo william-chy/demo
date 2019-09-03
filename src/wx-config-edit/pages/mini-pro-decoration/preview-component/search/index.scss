@@ -1,0 +1,18 @@
+.comp.search.preview{
+    padding: 10px 15px;
+    background: #fff;
+    .searchBox{
+        height: 34px;
+        background: #F0F3F5;
+        border-radius: 20px;
+        color: #999;
+        .el-icon-search{
+            font-size: 18px;
+            margin-right: 3px;
+            color: #999
+        }
+        &.left{
+            padding-left: 10px;
+        }
+    }
+}
