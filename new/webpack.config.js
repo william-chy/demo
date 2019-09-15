@@ -102,7 +102,7 @@ module.exports = (env) => {
         },
         {
           test: /\.vue$/,
-          loader: 'vue-loader',
+          use: [ 'vue-loader', 'babel-loader' ],
           // options: {
           //   loaders: {
           //     less: 'vue-style-loader!css-loader!less-loader', // <style lang="less">
