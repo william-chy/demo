@@ -19,14 +19,26 @@ module.exports = (env) => {
       rules: [
         // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
         {
-          test: /\.tsx?$/,
+          test: /\.ts$/,
+          exclude: /node_modules/,
+          enforce: 'pre',
           use: [
             {
-              loader: 'ts-loader',
-              options: { appendTsSuffixTo: [ /\.vue$/ ] },
+              loader: 'tslint-loader',
+              options: {
+                /* Loader options go here */
+                tsConfigFile: 'tsconfig.json',
+              },
             },
-            'awesome-typescript-loader',
           ],
+        },
+        {
+          test: /\.tsx?$/,
+          loader: 'ts-loader',
+          exclude: /node_modules/,
+          options: {
+            appendTsSuffixTo: [ /\.vue$/ ],
+          },
         },
         // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
         { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
@@ -160,7 +172,7 @@ module.exports = (env) => {
     ],
     resolve: {
       alias: {
-        '~@': path.resolve(__dirname, 'src/'),
+        '@': path.resolve(__dirname, 'src/'),
       },
       // 自动解析确定的扩展，即无需扩展名即可引用 例如 import abc form './component/abc';
       extensions: [ '.ts', '.tsx', '.js', '.json' ],
