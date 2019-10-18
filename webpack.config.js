@@ -37,7 +37,7 @@ module.exports = (env) => {
           loader: 'ts-loader',
           exclude: /node_modules/,
           options: {
-            appendTsSuffixTo: [ /\.vue$/ ],
+            appendTsSuffixTo: [/\.vue$/],
           },
         },
         // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
@@ -141,19 +141,19 @@ module.exports = (env) => {
     devtool: isDev ? 'inline-source-map' : '',
     devServer: isDev
       ? {
-          proxy: {
-            '/api': {
-              target: 'http://localhost:3300',
-              changeOrigin: true, // 是否跨域
-              // cookieDomainRewrite: '192.168.20.173', // 设置跨域的 https://github.com/chimurai/http-proxy-middleware#http-proxy-options
-              pathRewrite: {
-                '^/api': '/api',
-              },
+        proxy: {
+          '/api': {
+            target: 'http://localhost:3300',
+            changeOrigin: true, // 是否跨域
+            // cookieDomainRewrite: '192.168.20.173', // 设置跨域的 https://github.com/chimurai/http-proxy-middleware#http-proxy-options
+            pathRewrite: {
+              '^/api': '/api',
             },
           },
-          contentBase: './dist',
-          hot: true,
-        }
+        },
+        contentBase: './dist',
+        hot: true,
+      }
       : {},
     plugins: [
       new webpack.NamedModulesPlugin(),
@@ -173,9 +173,10 @@ module.exports = (env) => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src/'),
+        vue: 'vue/dist/vue.esm.js'
       },
       // 自动解析确定的扩展，即无需扩展名即可引用 例如 import abc form './component/abc';
-      extensions: [ '.ts', '.tsx', '.js', '.json' ],
+      extensions: ['.ts', '.tsx', '.js', '.json'],
     },
     externals: {
       //防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖
